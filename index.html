@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klon Tampilan Situs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+        }
+        .jackpot-bg {
+            background: linear-gradient(to bottom, #2a0a1f, #1a0a2a);
+            border: 1px solid #4a2a4a;
+        }
+        .jackpot-dots {
+            background-image: radial-gradient(#4a4a4a 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+    </style>
+</head>
+<body class="bg-black flex justify-center">
+
+    <div class="w-full max-w-md bg-[#121212] min-h-screen">
+        
+        <!-- === LINK WHATSAPP UNTUK SEMUA TOMBOL DAFTAR/LOGIN === -->
+        <% const whatsappLink = "https://wa.me/+62895351587384"; %>
+
+        <!-- Header -->
+        <header class="bg-[#1a1a1a] p-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-black text-white bg-yellow-400 text-black px-2 py-1 rounded-md">PAKCIK4D</h1>
+                <!-- Ikon centang SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-400 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <a href="<%= whatsappLink %>" target="_blank" class="bg-yellow-400 text-black text-sm font-bold px-4 py-2 rounded-md">DAFTAR !</a>
+        </header>
+
+        <!-- Main Image/Banner -->
+        <section class="bg-cyan-400 h-64 flex items-center justify-center">
+             <!-- Ganti dengan gambar kucing keberuntungan jika ada, atau gunakan placeholder -->
+             <svg xmlns="http://www.w3.org/2000/svg" class="w-48 h-48 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M16 1.75a.75.75 0 00-1.5 0V3h-3V1.75a.75.75 0 00-1.5 0V3h-3.418c-1.14 0-2.13.72-2.453 1.792l-2 6A.75.75 0 003 12h1.01a6.472 6.472 0 013.712-4.043l.462-1.294A.75.75 0 018.918 6H10v1.75a.75.75 0 001.5 0V6h3v1.75a.75.75 0 001.5 0V6h1.25a.75.75 0 000-1.5H16V1.75zM8.53 12.75a4.972 4.972 0 00-4.402 3.018 3.503 3.503 0 00-1.12 1.442.75.75 0 00.684 1.04h13.616a.75.75 0 00.684-1.04 3.53 3.53 0 00-1.12-1.443 4.972 4.972 0 00-4.402-3.017A5.003 5.003 0 0012 12.5a4.997 4.997 0 00-3.47 1.25z"/>
+             </svg>
+        </section>
+
+        <!-- Login/Daftar Bar -->
+        <nav class="grid grid-cols-2 text-center">
+            <a href="<%= whatsappLink %>" target="_blank" class="bg-red-600 text-white font-bold py-3">LOGIN</a>
+            <a href="<%= whatsappLink %>" target="_blank" class="bg-yellow-400 text-black font-bold py-3">DAFTAR</a>
+        </nav>
+
+        <!-- Menu Ikon -->
+        <div class="bg-[#1f1f1f] grid grid-cols-2 text-center py-4">
+            <a href="#" class="flex flex-col items-center text-white">
+                <!-- Ikon Casino SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 100-16 8 8 0 000 16z"/><path d="M12 13a1 1 0 100-2 1 1 0 000 2zM8.375 8.375a1 1 0 10-1.414-1.414 1 1 0 001.414 1.414zm7.25 7.25a1 1 0 10-1.414-1.414 1 1 0 001.414 1.414zM15.625 8.375a1 1 0 101.414-1.414 1 1 0 00-1.414 1.414zM6.96 15.625a1 1 0 101.414-1.414 1 1 0 00-1.414 1.414z"/>
+                </svg>
+                <span class="mt-1 text-sm font-semibold">CASINO</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-white">
+                <!-- Ikon Arcade SVG -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.296 2.252a1.5 1.5 0 012.408 1.156l1.324 6.025a1.5 1.5 0 001.23 1.15l5.242 1.12a1.5 1.5 0 01.996 2.302l-3.328 4.093a1.5 1.5 0 00-.28 1.446l1.24 6.136a1.5 1.5 0 01-2.22 1.62l-5.63-2.52a1.5 1.5 0 00-1.396 0l-5.63 2.52a1.5 1.5 0 01-2.22-1.62l1.24-6.136a1.5 1.5 0 00-.28-1.446L.96 13.995a1.5 1.5 0 01.996-2.302l5.242-1.12a1.5 1.5 0 001.23-1.15l1.324-6.025a1.5 1.5 0 011.544-1.15z" />
+                </svg>
+                <span class="mt-1 text-sm font-semibold">ARCADE</span>
+            </a>
+        </div>
+
+        <!-- Jackpot Banner -->
+        <div class="p-3 bg-black">
+            <div class="jackpot-bg rounded-lg p-3 relative jackpot-dots">
+                <div class="relative z-10 flex items-center justify-between">
+                    <div class="text-white">
+                        <p class="text-sm font-bold">PROGRESSIVE</p>
+                        <p class="text-lg font-black tracking-wider">JACKPOT</p>
+                    </div>
+                    <div class="bg-black text-white px-3 py-1 rounded-full border border-yellow-400">
+                        <span class="text-yellow-400 font-bold">USD</span> 
+                        <span id="jackpot-amount" class="text-lg font-bold tracking-tight">39,490,534.47</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten Utama -->
+        <main class="p-4 bg-black">
+            <div class="border-2 border-yellow-400 rounded-lg p-4 text-white">
+                <h2 class="text-center font-bold text-lg mb-4">PAKCIK PLATFORM SLOT88 GAMPANG MAXWIN</h2>
+                <div class="space-y-3 text-sm">
+                    <div class="grid grid-cols-3 gap-2">
+                        <span class="text-gray-400 col-span-1">Slot Gacor Malam Ini</span>
+                        <span class="font-semibold col-span-2">Pragmatic Play, PG Soft, Joker Gaming, No Limit City</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <span class="text-gray-400 col-span-1">Game Slot Gacor Hari Ini</span>
+                        <span class="font-semibold col-span-2">Gates of Olympus, Mahjong Ways, Lucky Neko</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <span class="text-gray-400 col-span-1">Minimal Deposit Tanpa Potongan</span>
+                        <span class="font-semibold col-span-2">Rp. 1.000,-</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <span class="text-gray-400 col-span-1">Deposit Dari</span>
+                        <span class="font-semibold col-span-2">Pulsa, BANK, E-Wallet, QRIS</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center p-4 bg-black">
+            <div class="bg-[#1f1f1f] text-gray-400 text-xs py-3 rounded-lg">
+                Copyright 2024 Slot All rights reserved.
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- SCRIPT UNTUK JACKPOT BERJALAN ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const jackpotElement = document.getElementById('jackpot-amount');
+            
+            // Mengambil angka awal dari elemen dan membersihkannya dari koma
+            let currentJackpot = parseFloat(jackpotElement.textContent.replace(/,/g, ''));
+
+            setInterval(() => {
+                // Menambah nilai dengan angka acak kecil agar terlihat alami
+                const increment = Math.random() * 0.15 + 0.01; 
+                currentJackpot += increment;
+
+                // Memformat ulang angka ke format mata uang dengan koma dan 2 desimal
+                jackpotElement.textContent = currentJackpot.toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }, 120); // Interval update dibuat cepat agar terlihat halus
+        });
+    </script>
+
+</body>
+</html>

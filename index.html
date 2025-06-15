@@ -4,8 +4,6 @@
   <meta charset="UTF-8" />
   <title>Injector Slot - Anime Style</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Font Anime -->
   <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 
   <style>
@@ -17,7 +15,7 @@
 
     body {
       font-family: 'Bangers', cursive;
-      background-color: #fff200; /* Kuning cerah */
+      background-color: #fff200; /* Kuning */
       color: #222;
       display: flex;
       flex-direction: column;
@@ -86,8 +84,12 @@
     }
 
     #jumpscare img {
-      max-width: 100%;
-      max-height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
       animation: shake 0.1s infinite;
     }
 
@@ -99,7 +101,6 @@
       100% { transform: translate(-2px, -2px) rotate(-1deg); }
     }
 
-    /* Bintang Jatuh */
     .star {
       position: absolute;
       top: -20px;
@@ -121,7 +122,7 @@
 </head>
 <body>
 
-  <h1>✨ Injector Slot - Untuk PAKCIK ✨</h1>
+  <h1>✨ Injector Slot - UNTUK ORANG KP2 AJA ✨</h1>
   <button onclick="showPopup()">Login</button>
 
   <div id="popup">
@@ -132,7 +133,9 @@
 
   <div id="jumpscare">
     <img src="https://i.postimg.cc/JznKdZBH/image.png" alt="Jumpscare">
-    <audio id="scream" src="https://www.fesliyanstudios.com/play-mp3/4386" autoplay></audio>
+    <audio id="scream" autoplay>
+      <source src="screamer-jumpscare-66896.mp3" type="audio/mpeg">
+    </audio>
   </div>
 
   <script>
@@ -151,21 +154,17 @@
 
     function triggerJumpscare() {
       document.getElementById("jumpscare").style.display = "flex";
-      const audio = document.getElementById("scream");
-      audio.play();
+      document.getElementById("scream").play();
     }
 
-    // Buat bintang jatuh otomatis
+    // Bintang jatuh
     setInterval(() => {
       const star = document.createElement('div');
       star.classList.add('star');
       star.style.left = Math.random() * 100 + 'vw';
       star.style.animationDuration = (Math.random() * 2 + 2) + 's';
       document.body.appendChild(star);
-
-      setTimeout(() => {
-        star.remove();
-      }, 5000);
+      setTimeout(() => star.remove(), 5000);
     }, 200);
   </script>
 

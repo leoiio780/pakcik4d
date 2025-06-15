@@ -1,354 +1,173 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEB PENCARI SELISIH  (Perbandingan ID) - Optimized & Duplicates Handled</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .textarea-data {
-            width: 100%;
-            height: 250px;
-            padding: 12px;
-            border: 2px dashed #d1d5db;
-            border-radius: 8px;
-            background-color: #f9fafb;
-            font-family: monospace;
-            font-size: 14px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .textarea-data:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-        }
-        thead th {
-            background-color: #f3f4f6;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        /* Custom styles untuk status */
-        .status-sesuai { background-color: #dcfce7; color: #166534; }
-        .status-selisih { background-color: #fef9c3; color: #854d0e; }
-        .status-tidak-ditemukan { background-color: #fee2e2; color: #991b1b; }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Injector Slot - Anime Style</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Font Anime -->
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Bangers', cursive;
+      background-color: #fff200; /* Kuning cerah */
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: 2px 2px 4px #fff;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff66cc;
+      color: white;
+      margin: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff1493;
+      transform: scale(1.05);
+    }
+
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      color: white;
+      z-index: 1000;
+    }
+
+    #popup p {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    #jumpscare {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    #jumpscare img {
+      max-width: 100%;
+      max-height: 100%;
+      animation: shake 0.1s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      25% { transform: translate(2px, -2px) rotate(-1deg); }
+      50% { transform: translate(-2px, 2px) rotate(1deg); }
+      75% { transform: translate(2px, 2px) rotate(0deg); }
+      100% { transform: translate(-2px, -2px) rotate(-1deg); }
+    }
+
+    /* Bintang Jatuh */
+    .star {
+      position: absolute;
+      top: -20px;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px white;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 p-4 sm:p-6 md:p-8">
+<body>
 
-    <div class="max-w-screen-xl mx-auto">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Alat Rekonsiliasi Data Massal</h1>
-            <p class="mt-2 text-lg text-gray-600">Bandingkan ID dan nominal berdampingan untuk validasi yang akurat.</p>
-        </header>
+  <h1>✨ Injector Slot - Untuk PAKCIK ✨</h1>
+  <button onclick="showPopup()">Login</button>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Kolom Input Data -->
-            <div class="space-y-8">
-                <!-- Data Sistem -->
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <h2 class="text-xl font-semibold mb-2">1. Tempel Data Sistem (Panel)</h2>
-                    <p class="text-sm text-gray-500 mb-4">Salin 2 kolom (ID dan Nominal) dari Excel lalu tempel di sini.</p>
-                    <textarea id="sistem-data" class="textarea-data" placeholder="Contoh:&#10;123ad   50000&#10;456ef   75000&#10;123ad   50000 &#10;123ad   60000 &#10;ID Dengan Spasi   100000"></textarea>
-                </div>
+  <div id="popup">
+    <p>Apakah Anda setuju untuk menggunakan Injector Slot?</p>
+    <button id="btnYa" onclick="triggerJumpscare()">Setuju</button>
+    <button id="btnTidak" onmouseover="hindari(event)">Tidak</button>
+  </div>
 
-                <!-- Data Manual -->
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <h2 class="text-xl font-semibold mb-2">2. Tempel Data Catatan Manual</h2>
-                    <p class="text-sm text-gray-500 mb-4">Salin 2 kolom (ID dan Nominal) dari Excel lalu tempel di sini.</p>
-                    <textarea id="manual-data" class="textarea-data" placeholder="Contoh:&#10;123AD   49000&#10;456ef   75000&#10;123AD   50000&#10;101ij   15000&#10;ID DENGAN SPASI   100000"></textarea>
-                </div>
-            </div>
+  <div id="jumpscare">
+    <img src="https://i.postimg.cc/JznKdZBH/image.png" alt="Jumpscare">
+    <audio id="scream" src="https://www.fesliyanstudios.com/play-mp3/4386" autoplay></audio>
+  </div>
 
-            <!-- Kolom Hasil Rekonsiliasi -->
-            <div class="bg-white p-6 rounded-xl shadow-lg">
-                <h2 class="text-xl font-semibold mb-4 border-b pb-2">3. Hasil Rekonsiliasi Otomatis</h2>
-                <div class="flex justify-end mb-4">
-                    <button id="download-csv" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out">
-                        Unduh Hasil (CSV)
-                    </button>
-                </div>
-                <div class="overflow-auto" style="max-height: 600px;">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr>
-                                <th class="p-2 text-left">ID Sistem</th>
-                                <th class="p-2 text-left">ID Manual</th>
-                                <th class="p-2 text-left">Nominal Sistem</th>
-                                <th class="p-2 text-left">Nominal Manual</th>
-                                <th class="p-2 text-left">Selisih</th>
-                                <th class="p-2 text-left">Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody id="hasil-rekon">
-                           <tr><td colspan="6" class="text-center p-8 text-gray-500">Silakan tempel data untuk memulai.</td></tr>
-                        </tbody>
-                    </table>
-                    <!-- Loading indicator for large datasets -->
-                    <div id="loading-indicator" class="hidden text-center text-gray-600 p-4">
-                        Memproses data... Harap tunggu sebentar.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <script>
+    function showPopup() {
+      document.getElementById("popup").style.display = "block";
+    }
 
-    <script>
-        // Array untuk menyimpan data hasil rekonsiliasi dalam format yang mudah diekspor
-        let reconciliationResults = [];
+    function hindari(event) {
+      const button = event.target;
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 50);
+      button.style.position = "absolute";
+      button.style.left = `${x}px`;
+      button.style.top = `${y}px`;
+    }
 
-        // Fungsi untuk memformat angka menjadi format Rupiah
-        function formatRupiah(angka, includeCurrency = true) {
-            if (typeof angka === 'undefined' || angka === null || isNaN(angka)) {
-                return '-';
-            }
-            if (includeCurrency) {
-                return new Intl.NumberFormat('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR',
-                    minimumFractionDigits: 0
-                }).format(angka);
-            } else {
-                return String(angka); // Menggunakan String() untuk menghindari masalah format
-            }
-        }
-        
-        // Fungsi parseData yang dioptimalkan untuk memproses teks baris per baris
-        function parseData(text) {
-            const dataList = []; 
-            let instanceCounter = 0; // Untuk membuat ID unik per baris input
+    function triggerJumpscare() {
+      document.getElementById("jumpscare").style.display = "flex";
+      const audio = document.getElementById("scream");
+      audio.play();
+    }
 
-            let startIndex = 0;
-            let newlineIndex;
-            const len = text.length;
+    // Buat bintang jatuh otomatis
+    setInterval(() => {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      document.body.appendChild(star);
 
-            while (startIndex < len) {
-                newlineIndex = text.indexOf('\n', startIndex);
-                const endIndex = (newlineIndex === -1) ? len : newlineIndex;
+      setTimeout(() => {
+        star.remove();
+      }, 5000);
+    }, 200);
+  </script>
 
-                let line = text.substring(startIndex, endIndex).trim();
-                
-                startIndex = endIndex + 1; 
-
-                if (line === '') {
-                    continue;
-                }
-
-                const parts = line.split(/\s+/); 
-                
-                if (parts.length >= 2) {
-                    const nominalPart = parts[parts.length - 1]; 
-                    const originalId = parts.slice(0, parts.length - 1).join(' ');
-                    
-                    const normalizedId = originalId.toLowerCase();
-                    const nominal = parseFloat(nominalPart.replace(/,/g, '')); 
-
-                    if (originalId && !isNaN(nominal)) {
-                        dataList.push({ 
-                            originalId: originalId, 
-                            normalizedId: normalizedId, 
-                            nominal: nominal,
-                            _instanceId: item_${instanceCounter++}, // ID unik untuk instance baris ini
-                            _processed: false // Flag untuk melacak apakah instance ini sudah direkonsiliasi
-                        });
-                    }
-                }
-            }
-            return dataList;
-        }
-
-        // Fungsi utama untuk melakukan rekonsiliasi
-        async function reconcileData() { 
-            const sistemDataText = document.getElementById('sistem-data').value;
-            const manualDataText = document.getElementById('manual-data').value;
-            const hasilBody = document.getElementById('hasil-rekon');
-            const loadingIndicator = document.getElementById('loading-indicator');
-
-            // Tampilkan pesan loading dan kosongkan tabel
-            hasilBody.innerHTML = ''; 
-            loadingIndicator.classList.remove('hidden'); 
-            document.getElementById('download-csv').disabled = true;
-            document.getElementById('download-csv').classList.add('opacity-50', 'cursor-not-allowed');
-
-            // Beri kesempatan browser untuk merender pesan loading sebelum komputasi berat
-            await new Promise(resolve => setTimeout(resolve, 0)); 
-
-            const sistemDataList = parseData(sistemDataText); 
-            const manualDataList = parseData(manualDataText); 
-
-            reconciliationResults = []; 
-
-            // Buat Map untuk pencarian cepat, Map menyimpan referensi ke objek dari dataList
-            const sistemDataMap = new Map();
-            sistemDataList.forEach(item => {
-                if (!sistemDataMap.has(item.normalizedId)) {
-                    sistemDataMap.set(item.normalizedId, []);
-                }
-                sistemDataMap.get(item.normalizedId).push(item);
-            });
-
-            const manualDataMap = new Map();
-            manualDataList.forEach(item => {
-                if (!manualDataMap.has(item.normalizedId)) {
-                    manualDataMap.set(item.normalizedId, []);
-                }
-                manualDataMap.get(item.normalizedId).push(item);
-            });
-
-            if (sistemDataList.length === 0 && manualDataList.length === 0) {
-                 hasilBody.innerHTML = <tr><td colspan="6" class="text-center p-8 text-gray-500">Tempel data untuk memulai.</td></tr>;
-                 loadingIndicator.classList.add('hidden'); 
-                 return;
-            }
-
-            document.getElementById('download-csv').disabled = false;
-            document.getElementById('download-csv').classList.remove('opacity-50', 'cursor-not-allowed');
-            
-            let allRowsHtml = [];
-
-            // --- Fase 1: Mencoba mencocokkan setiap item sistem ---
-            sistemDataList.forEach(sistemItem => {
-                // Pastikan item sistem ini belum diproses sebelumnya (jika ada logika di luar forEach ini yang memproses)
-                // Namun, karena kita mengiterasi sistemDataList secara langsung, setiap item akan diproses.
-                // Flag _processed akan digunakan untuk menandai pasangan agar tidak digunakan kembali.
-
-                const manualEntriesForId = manualDataMap.get(sistemItem.normalizedId) || [];
-                let matchedManualItem = null;
-
-                // 1. Prioritaskan pencarian nominal yang persis cocok, yang belum diproses
-                for (let i = 0; i < manualEntriesForId.length; i++) {
-                    const manualItem = manualEntriesForId[i];
-                    if (!manualItem._processed && sistemItem.nominal === manualItem.nominal) {
-                        matchedManualItem = manualItem;
-                        break; // Temukan yang pertama dan keluar
-                    }
-                }
-                
-                // 2. Jika tidak ada nominal yang persis cocok, cari item manual apa pun yang belum diproses
-                if (!matchedManualItem) {
-                    for (let i = 0; i < manualEntriesForId.length; i++) {
-                        const manualItem = manualEntriesForId[i];
-                        if (!manualItem._processed) { // Temukan item manual pertama yang belum diproses
-                            matchedManualItem = manualItem;
-                            break; 
-                        }
-                    }
-                }
-
-                // Sekarang, proses item sistem saat ini berdasarkan apakah item manual cocok ditemukan
-                if (matchedManualItem) {
-                    const selisih = sistemItem.nominal - matchedManualItem.nominal;
-                    let keterangan = 'Ada Selisih';
-                    let statusClass = 'status-selisih';
-                    if (selisih === 0) {
-                        keterangan = 'Sesuai';
-                        statusClass = 'status-sesuai';
-                    }
-                    appendRow(sistemItem, matchedManualItem, keterangan, statusClass, selisih, allRowsHtml);
-                    sistemItem._processed = true; // Tandai item sistem ini sudah diproses
-                    matchedManualItem._processed = true; // Tandai item manual yang cocok ini sudah diproses
-                } else {
-                    // Jika tidak ada item manual yang cocok atau tersisa untuk instance ID sistem ini
-                    appendRow(sistemItem, null, 'Hanya di Sistem', 'status-tidak-ditemukan', null, allRowsHtml);
-                    sistemItem._processed = true; // Tandai item sistem ini sudah diproses
-                }
-            });
-
-            // --- Fase 2: Tambahkan item manual yang belum diproses ---
-            manualDataList.forEach(manualItem => {
-                // Jika item manual ini belum ditandai sebagai diproses dari fase 1 (yaitu, tidak ada pasangannya)
-                if (!manualItem._processed) {
-                    appendRow(null, manualItem, 'Hanya di Manual', 'status-tidak-ditemukan', null, allRowsHtml);
-                    manualItem._processed = true; // Tandai sebagai diproses sekarang
-                }
-            });
-
-            // Injeksi semua baris HTML sekaligus ke DOM
-            hasilBody.innerHTML = allRowsHtml.join('');
-
-            // Sembunyikan pesan loading
-            loadingIndicator.classList.add('hidden');
-        }
-
-        // Fungsi helper untuk menambahkan baris ke array HTML dan ke array reconciliationResults
-        function appendRow(sistemItem, manualItem, keterangan, statusClass, selisihOverride = null, rowsHtmlArray) {
-            const idSistem = sistemItem ? sistemItem.originalId : '-';
-            const idManual = manualItem ? manualItem.originalId : '-';
-
-            const nominalSistem = sistemItem ? sistemItem.nominal : undefined;
-            const nominalManual = manualItem ? manualItem.nominal : undefined;
-
-            const selisih = selisihOverride !== null ? selisihOverride : ((nominalSistem || 0) - (nominalManual || 0));
-
-            const newRowHtml = `
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="p-2 font-medium ${!sistemItem ? 'text-gray-400' : ''}">${idSistem}</td>
-                    <td class="p-2 font-medium ${!manualItem ? 'text-gray-400' : ''}">${idManual}</td>
-                    <td class="p-2">${formatRupiah(nominalSistem)}</td>
-                    <td class="p-2">${formatRupiah(nominalManual)}</td>
-                    <td class="p-2 font-semibold ${selisih !== 0 ? 'text-red-600' : 'text-green-600'}">${formatRupiah(selisih)}</td>
-                    <td class="p-2"><span class="px-2 py-1 rounded-full font-semibold text-xs ${statusClass}">${keterangan}</span></td>
-                </tr>
-            `;
-            rowsHtmlArray.push(newRowHtml); 
-            
-            // Simpan data mentah ke dalam array untuk ekspor CSV
-            reconciliationResults.push({
-                idSistem: idSistem,
-                idManual: idManual,
-                nominalSistem: nominalSistem,
-                nominalManual: nominalManual,
-                selisih: selisih,
-                keterangan: keterangan
-            });
-        }
-
-        // Fungsi untuk mengunduh data sebagai CSV
-        function downloadCSV() {
-            if (reconciliationResults.length === 0) {
-                console.log('Tidak ada data untuk diunduh.'); // Menggunakan konsol, bukan alert()
-                return;
-            }
-
-            const headers = ["ID Sistem", "ID Manual", "Nominal Sistem", "Nominal Manual", "Selisih", "Keterangan"];
-            
-            const csvRows = reconciliationResults.map(row => {
-                // Pastikan nilai dibungkus tanda kutip jika mengandung koma atau spasi
-                const idSistem = "${row.idSistem}"; 
-                const idManual = "${row.idManual}";
-                // Format nominal tanpa simbol mata uang untuk CSV
-                const nominalSistem = formatRupiah(row.nominalSistem, false); 
-                const nominalManual = formatRupiah(row.nominalManual, false);
-                const selisih = formatRupiah(row.selisih, false);
-                const keterangan = "${row.keterangan}";
-
-                return [idSistem, idManual, nominalSistem, nominalManual, selisih, keterangan].join(',');
-            });
-
-            const csvContent = [headers.join(','), ...csvRows].join('\n');
-
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', 'hasil_rekonsiliasi.csv');
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        // Tambahkan event listener ke kedua textarea
-        document.getElementById('sistem-data').addEventListener('input', reconcileData);
-        document.getElementById('manual-data').addEventListener('input', reconcileData);
-        document.getElementById('download-csv').addEventListener('click', downloadCSV);
-
-        // Panggilan awal untuk mengatur status tombol saat halaman dimuat
-        reconcileData();
-    </script>
 </body>
 </html>
